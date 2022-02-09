@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme formCreateProduct 'bootstrap_5_layout.html.twig' %}
+
+{% block title %} Créer un produit{% endblock %}
+
+{% block h1 %}Créer un nouveau produit{% endblock %}
+
+{% block body %}
+
+    {{ form_start(formCreateProduct) }}
+
+    {{ form_row(formCreateProduct.name) }}
+
+    {{ form_row(formCreateProduct.price) }}
+
+    {{ form_row(formCreateProduct.image) }}
+
+    {{ form_row(formCreateProduct.category) }}
+
+    {{ form_row(formCreateProduct.description) }}
+
+    <button type="submit" class="btn btn-success" >Créer un produit</button>
+
+    {{ form_end(formCreateProduct) }}
+
+{% endblock %}

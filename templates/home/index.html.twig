@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Homepage{% endblock %}
+
+{% block h1 %}Homepage{% endblock %}
+
+{% block body %}
+
+    <div class="row justify-content-around">
+        <h2 class="text-center text-break">Nos produits fares</h2>
+        {% for product in products %}
+            <div class="card col-3 h-100 pb-2">
+                <h3 class="text-center card-text">{{ product.name | capitalize }} <span>{{ product.price | price }}</span></h3>
+                <img src="{{ product.image }}" alt="Image de {{ product.name | capitalize }}" class="h-25">
+                <a href="{{ path('category_show', {'slug': product.category.slug}) }}" class="badge badge-pill badge-primary bg-primary mt-2 mb-2 text-decoration-none w-auto ">
+                    {{ product.category.name | capitalize }}
+                </a>
+                <p class="text-truncate card-text">{{ product.description }}</p>
+                <a href="{{ path('product_show', {'categorySlug': product.category.slug, 'productSlug': product.slug}) }}" class="btn btn-primary">Voir le produit</a>
+                <a href="{{path('cart_add', {'id': product.id}) }}" class="btn btn-success mt-2">Ajouter au panier</a>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="row justify-content-around text-center mt-2">
+        <h2 class="mt-2">Un service de qualité</h2>
+        {% include "partials/_homeCards.html.twig" with {
+            'color': 'success',
+            'title': 'Assurance',
+            'icon': 'fa-check',
+            'text': "L'assurance d'avoir une assurance !"
+        } %}
+
+        {% include "partials/_homeCards.html.twig" with {
+            'color': 'warning',
+            'title': 'Livraison',
+            'icon': 'fa-truck',
+            'text': "Une livraison qui livre chez vous !"
+        } %}
+
+        {% include "partials/_homeCards.html.twig" with {
+            'color': 'primary',
+            'title': 'Paiement sécurisé',
+            'icon': 'fa-credit-card',
+            'text': "Un paiement sécurisé en toute sécurité !"
+        } %}
+    </div>
+
+{% endblock %}

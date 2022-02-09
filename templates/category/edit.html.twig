@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme formEditCategory 'bootstrap_5_layout.html.twig' %}
+
+{% block title %}Modifier la catégorie {{ category.name | capitalize }}{% endblock %}
+
+{% block h1 %}Modifier la catégorie {{ category.name | capitalize }}{% endblock %}
+
+{% block body %}
+
+    {{ form_start(formEditCategory) }}
+
+    {{ form_row(formEditCategory.name) }}
+
+    {{ form_row(formEditCategory.description) }}
+
+    <button type="submit" class="btn btn-success">Modifier {{ category.name | capitalize }}</button>
+
+    {{ form_end(formEditCategory) }}
+
+{% endblock %}

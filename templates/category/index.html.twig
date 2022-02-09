@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Catégories{% endblock %}
+
+{% block h1 %}Catégories{% endblock %}
+
+{% block body %}
+
+    <a href="{{ path('category_create') }}" class="btn btn-success">Créer une catégorie</a>
+
+    {% for category in categoryRepository.findAll() %}
+        <div class="card mt-2 p-2">
+            <h2><a href="{{ path('category_show', {'slug': category.slug}) }}" class="text-decoration-none">{{ category.name | capitalize }}</a></h2>
+            <p>{{ category.description }}</p>
+            <p class="mb-0">
+                <a href="{{ path('category_edit', {'slug': category.slug}) }}" class="btn btn-info">
+                    Modifier <i class="fas fa-pencil-ruler"></i>
+                </a>
+                <a href="{{ path('category_delete', {'slug': category.slug}) }}" class="btn btn-danger">
+                    Supprimer <i class="fas fa-trash-alt"></i>
+                </a>
+            </p>            
+        </div>
+    {% endfor %}
+
+{% endblock %}

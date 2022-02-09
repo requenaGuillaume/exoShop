@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ category.name | capitalize }}{% endblock %}
+
+{% block h1 %}{{ category.name | capitalize }}{% endblock %}
+
+{% block body %}
+
+    <div class="row">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ path('home') }}">Homepage</a></li>
+                <li class="breadcrumb-item active">
+                    {{ category.name | capitalize }}
+                </li>            
+            </ol>
+        </nav>
+    </div>
+
+    <p>{{ category.description }}</p>
+
+    <div class="row justify-content-evenly">
+    {% for product in category.products %}
+        <div class="card col-3 m-4 pt-2">
+            <img src="{{ product.image }}" alt="Image du produit {{ product.name }}">
+            <div class="card-body">
+                <h3 class="card-title">{{ product.name | capitalize }} ({{ product.price | price }})</h3>
+                <p class="card-text text-truncate">{{ product.description }}</p>
+                <a href="{{ path('product_show', {'categorySlug': product.category.slug, 'productSlug': product.slug}) }}" class="btn btn-primary d-block">Voir le produit</a>
+                <a href="{{ path('cart_add', {'id': product.id}) }}" class="btn btn-success mt-2 d-block">Ajouter au panier</a>
+            </div>
+        </div>        
+    {% endfor %}
+    </div>
+
+{% endblock %}

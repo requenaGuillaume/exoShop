@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme formPurchase 'bootstrap_5_layout.html.twig' %}
+
+{% block title %}Panier{% endblock %}
+
+{% block h1 %}Mon panier{% endblock %}
+
+{% block body %}
+
+    <div class="d-flex flex-row">
+        <div class="card col-6 p-2 bg-success d-inline">
+            <h2 class="card-title text-center">{{ cart | length }} produit(s)</h2>
+
+            <div class="card-body">
+                <ul style="padding-left:0;">
+                    {% for item in cart %}
+                        <li style="list-style-type:none;font-weight:bold;" class="mt-2">
+                            {{ item.product.name | capitalize }} (x {{ item.quantity }}) 
+                            <a href="{{ path('cart_decrement', {'id': item.product.id}) }}" class="btn-primary p-1 rounded text-center" title="Retirer 1">
+                                <i class="fas fa-minus"></i>
+                            </a>
+                            <a href="{{ path('cart_add', {'id': item.product.id}) }}" class="btn-primary p-1 rounded text-center" style="margin: 0 0.5rem;" title="Ajouter 1">
+                                <i class="fas fa-plus"></i>
+                            </a>
+                            <a href="{{ path('cart_delete', {'id': item.product.id}) }}" class="btn-danger p-1 rounded text-center" title="Supprimer">
+                                <i class="fas fa-trash"></i>
+                            </a>                            
+                            <span class="mb-0 d-block" style="font-weight:normal;margin-left:1rem;">Prix unitaire {{ item.product.price | price }}</span>
+                            <span class="d-block" style="font-weight:normal;margin-left:1rem;">Total : {{ item.totalPrice | price }}</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+
+            </div>
+            <p class="text-center" style="font-weight:bold;font-size:1.5rem;">Total du panier : {{ totalPrice | price }}</p>
+        </div>
+
+        <div class="col-6 p-2">
+
+        {% if app.user %}
+            <h3 class="text-center">
+            {% if (cart | length) > 0 %}
+                Confirmez ou modifier l'adresse de livraison
+            </h3>
+            
+            {{ form_start(formPurchase, {'attr': {'class': 'w-75 mx-auto'}}) }}
+
+            {{ form_row(formPurchase.firstName, {'attr': {'value': user.firstName}}) }}
+            {{ form_row(formPurchase.lastName, {'attr': {'value': user.lastName}}) }}
+            {{ form_row(formPurchase.country, {'attr': {'value': user.country}}) }}
+            {{ form_row(formPurchase.city, {'attr': {'value': user.city}}) }}
+            {{ form_row(formPurchase.postalCode, {'attr': {'value': user.postalCode}}) }}
+            {{ form_row(formPurchase.address, {'attr': {'value': user.address}}) }}
+
+            <div class="col text-center">
+                <button type="submit" class="btn btn-success">Confirmer l'adresse de livraison</button>
+            </div>
+
+            {{ form_end(formPurchase) }}
+
+            {% else %}
+                Votre panier est vide
+            </h3>
+                {% endif %}
+        {% else %}
+            <h3 class="text-center">Vous devez être connecté pour pouvoir confirmer votre commande</h3>
+        {% endif %}
+        </div>
+    </div>
+
+
+{% endblock %}

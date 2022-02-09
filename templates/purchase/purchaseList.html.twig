@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste de vos commandes{% endblock %}
+
+{% block h1 %}Liste de vos commandes{% endblock %}
+
+{% block body %}
+
+    {% if purchases %}
+        {% for purchase in purchases %}
+            <div class="card p-2 mt-2 rounded bg-success">
+                <h4>Commande du {{ purchase.createdAt | date('d-m-Y à H:i') }}</h4>
+                <ul class="list-unstyled">
+                    {% for purchaseitem in purchase.purchaseitems %}
+                        <li>
+                            <span class="badge bg-warning badge-pill text-dark">{{ purchaseitem.quantity }} x </span>
+                            {{ purchaseitem.name | capitalize }}
+                            ({{ purchaseitem.price | price }}) : {{ purchaseitem.totalPrice | price }}
+                        </li>                    
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme formCreateCategory 'bootstrap_5_layout.html.twig' %}
+
+{% block title %}Créer une catégorie{% endblock %}
+
+{% block h1 %}Créer une catégorie{% endblock %}
+
+{% block body %}
+
+    {{ form_start(formCreateCategory) }}
+
+    {{ form_row(formCreateCategory.name) }}
+
+    {{ form_row(formCreateCategory.description) }}
+
+    <button type="submit" class="btn btn-success">Créer</button>
+
+    {{ form_end(formCreateCategory) }}
+
+{% endblock %}

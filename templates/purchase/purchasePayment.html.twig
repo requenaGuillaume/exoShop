@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Payment{% endblock %}
+
+{% block h1 %}Payment{% endblock %}
+
+{% block body %}
+
+    <!-- Display a payment form -->
+    <form id="payment-form">
+      <div id="payment-element">
+        <!--Stripe.js injects the Payment Element-->
+      </div>
+      <button id="submit" class="btn btn-success mt-2">
+        <div class="spinner hidden" id="spinner"></div>
+        <span id="button-text">Payer</span>
+      </button>
+      <div id="payment-message" class="hidden"></div>
+    </form>
+
+    <script>
+        let redirectAfterSuccess = "{{ url('purchase_payment_success', {'id': id}) }}"; 
+        let clientSecret = "{{ paymentIntent.client_secret }}";
+        let stripePublicKey = "{{ stripePublicKey }}"
+    </script>
+
+    {% block javascripts %}
+      <script src="https://js.stripe.com/v3/"></script>     
+      <script src="{{ homeUrl }}js/checkout.js"></script>
+      {# Ou #}
+      {# // <script src="https://127.0.0.1:8000/js/checkout.js"></script> #}
+      {# // <script src="../../js/checkout.js"></script> #}
+    {% endblock %}
+
+{% endblock %}

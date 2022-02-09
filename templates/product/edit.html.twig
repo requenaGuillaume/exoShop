@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme formEditProduct 'bootstrap_5_layout.html.twig' %}
+
+{% block title %}Editer {{ product.name | capitalize }}{% endblock %}
+
+{% block h1 %}Editer {{ product.name | capitalize }} <span>{{ product.price | price }}</span>{% endblock %}
+
+{% block body %}
+
+    {{ form_start(formEditProduct) }}
+
+    {{ form_row(formEditProduct.name) }}
+
+    {{ form_row(formEditProduct.price) }}
+
+    {{ form_row(formEditProduct.image) }}
+
+    {{ form_row(formEditProduct.category) }}
+
+    {{ form_row(formEditProduct.description) }}
+
+    <button type="submit" class="btn btn-success" >Editer {{ product.name | capitalize }}</button>
+
+    {{ form_end(formEditProduct) }}
+
+{% endblock %}

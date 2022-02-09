@@ -1,0 +1,27 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="{{ path('home') }}" style="margin-left:1rem">ExoShop</a>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            {% for category in categoryRepository.findAll() %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('category_show', {'slug': category.slug}) }}">{{ category.name | capitalize }}</a>
+                </li>
+	        {% endfor %}
+
+            {% if is_granted('ROLE_ADMIN') %}
+                <li class="nav-item">
+                    <a href="{{ path('category_list') }}" class="btn btn-primary">Categories</a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+    <a href="{{ path('cart_show') }}" class="btn btn-info" style="margin-right:1rem;">{{ cartNav.getCart() | length }} produit(s) <i class="fas fa-shopping-cart"> </i></a>
+    {% if app.user %}
+        <a href="{{ path('purchase_list') }}" class="btn btn-warning" style="margin-right:1rem;">Mes commandes</a>
+        <a href="{{ path('security_logout') }}" class="btn btn-danger" style="margin-right:1rem;">Deconnexion</a>
+    {% else %}
+        <a href="{{ path('security_login') }}" class="btn btn-success" style="margin-right:1rem;">Connexion</a>
+        <a href="{{ path('security_register') }}" class="btn btn-success" style="margin-right:1rem;">Inscription</a>
+    {% endif %}
+</nav>

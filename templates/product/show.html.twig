@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ product.name | capitalize }}{% endblock %}
+
+{% block h1 %}{{ product.name | capitalize }} <span>{{ product.price | price }}</span>{% endblock %}
+
+{% block body %}
+
+    <div class="row">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ path('home') }}">Homepage</a></li>
+                <li class="breadcrumb-item">
+                    <a href="{{ path('category_show', {'slug': product.category.slug}) }}">
+                        {{ product.category.name | capitalize }}
+                    </a>
+                </li>
+                <li class="breadcrumb-item active">
+                    {{ product.name | capitalize }}
+                </li>           
+            </ol>
+        </nav>
+    </div>
+
+    {% if is_granted("ROLE_ADMIN") %}
+            <div style="text-align:right;" >
+                <a href="{{ path('product_edit', {'categorySlug': product.category.slug, 'productSlug': product.slug}) }}" class="btn btn-info mb-2">
+                    Modifier <i class="fas fa-pencil-ruler"></i>
+                </a>
+                <a href="{{ path('product_delete', {'categorySlug': product.category.slug, 'productSlug': product.slug}) }}" class="btn btn-danger mb-2">
+                    Supprimer <i class="fas fa-trash-alt"></i>
+                </a>
+            </div>
+    {% endif %}
+
+    <div class="card p-2">
+        <img src="{{ product.image }}" alt="Image du produit {{ product.name | capitalize }}" class="w-25 mx-auto d-block" style="height:5%;">
+        
+        <p class="mx-auto mt-2 mb-2" style="font-weight:bold;">
+            Dans la catégorie : 
+            <a href="{{ path('category_show', {'slug': product.category.slug}) }}" class="badge badge-pill badge-primary bg-primary text-decoration-none">
+                {{ product.category.name | capitalize }}
+            </a>
+        </p>
+
+        <a href="{{ path('cart_add', {'id': product.id}) }}" class="btn btn-success mt-2 w-25 mx-auto">Ajouter au panier</a>      
+        
+        <p class="mt-2">{{ product.description }}</p>
+    </div>
+
+{% endblock %}
