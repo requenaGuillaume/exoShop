@@ -69,7 +69,7 @@ class ProductController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
-            $this->em->persist($product);
+            $this->em->persist($product); // pas besoin du persist si ?
             $this->em->flush();
 
             return $this->redirectToRoute('product_show', [
@@ -98,6 +98,12 @@ class ProductController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()){
             $product->setSlug(strtolower($slugger->slug($product->getName())));
+
+            // If slug is already used by another product, stop and display an error message
+            if($this->productRepository->findOneBy(['slug' => $product->getSlug()])){
+                $this->addFlash('danger', 'Le produit n\'a pas pu être créé : slug (issu du nom du produit) déja utilisé par un autre produit');
+                return $this->redirectToRoute('product_create');
+            }
 
             $this->em->persist($product);
             $this->em->flush();

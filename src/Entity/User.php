@@ -6,12 +6,14 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @UniqueEntity("email", message="Un utilisateur existe déja pour cette adresse mail.")
  */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -24,6 +26,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\NotBlank(message="Le champ doit être complété.")
+     * @Assert\Email( message = "'{{ value }}' n'est pas une adresse mail valide.")
      */
     private $email;
 
@@ -35,6 +39,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     * @Assert\NotBlank(message="Le champ doit être complété.")
+     * @Assert\Length(
+     *                  min=2, 
+     *                  max=255, 
+     *                  minMessage="Le champ doit être supérieur ou égal à {{ limit }} caractères.", 
+     *                  maxMessage="Le champ doit être inférieur ou égal à {{ limit }} caractères."
+     *              )
      */
     private $password;
 
@@ -45,31 +56,79 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Le champ doit être complété.")
+     * @Assert\Length(
+     *                  min=2, 
+     *                  max=255, 
+     *                  minMessage="Le champ doit être supérieur ou égal à {{ limit }} caractères.", 
+     *                  maxMessage="Le champ doit être inférieur ou égal à {{ limit }} caractères."
+     *              )
+     * @Assert\Regex("/^[^<>{}][^<>{}]+[^<>{}]$/", message="Le champ ne doit pas contenir les caractères suivants : < > { }")
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Le champ doit être complété.")
+     * @Assert\Length(
+     *                  min=2, 
+     *                  max=255, 
+     *                  minMessage="Le champ doit être supérieur ou égal à {{ limit }} caractères.", 
+     *                  maxMessage="Le champ doit être inférieur ou égal à {{ limit }} caractères."
+     *              )
+     * @Assert\Regex("/^[^<>{}][^<>{}]+[^<>{}]$/", message="Le champ ne doit pas contenir les caractères suivants : < > { }")
      */
     private $lastName;
 
     /**
      * @ORM\Column(type="string")
+     * @Assert\NotBlank(message="Le champ doit être complété.")
+     * @Assert\Length(
+     *                  min=10, 
+     *                  max=12, 
+     *                  minMessage="Le champ doit être supérieur ou égal à {{ limit }} caractères.", 
+     *                  maxMessage="Le champ doit être inférieur ou égal à {{ limit }} caractères."
+     *              )
+     * @Assert\Regex("/^[+0-9]{1,3}[0-9]{9}$/", message="Formats acceptés : 0101010101 ou +33101010101")
      */
     private $phone;
 
     /**
      * @ORM\Column(type="string")
+     * @Assert\NotBlank(message="Le champ doit être complété.")
+     * @Assert\Length(
+     *                  min=5, 
+     *                  max=7, 
+     *                  minMessage="Le champ doit être supérieur ou égal à {{ limit }} caractères.", 
+     *                  maxMessage="Le champ doit être inférieur ou égal à {{ limit }} caractères."
+     *              )
+     * @Assert\Regex("/^[A-Z(^<>)]{0,2}[0-9]{3,5}$/", message="Formats acceptés : AA934 ou 93400")
      */
     private $postalCode;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Le champ doit être complété.")
+     * @Assert\Length(
+     *                  min=2, 
+     *                  max=255, 
+     *                  minMessage="Le champ doit être supérieur ou égal à {{ limit }} caractères.", 
+     *                  maxMessage="Le champ doit être inférieur ou égal à {{ limit }} caractères."
+     *              )
+     * @Assert\Regex("/^[^<>{}][^<>{}]+[^<>{}]$/", message="Le champ ne doit pas contenir les caractères suivants : < > { }")
      */
     private $city;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Le champ doit être complété.")
+     * @Assert\Length(
+     *                  min=2, 
+     *                  max=255, 
+     *                  minMessage="Le champ doit être supérieur ou égal à {{ limit }} caractères.", 
+     *                  maxMessage="Le champ doit être inférieur ou égal à {{ limit }} caractères."
+     *              )
+     * @Assert\Regex("/^[^<>{}][^<>{}]+[^<>{}]$/", message="Le champ ne doit pas contenir les caractères suivants : < > { }")
      */
     private $country;
 
@@ -80,6 +139,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Le champ doit être complété.")
+     * @Assert\Length(
+     *                  min=2, 
+     *                  max=255, 
+     *                  minMessage="Le champ doit être supérieur ou égal à {{ limit }} caractères.", 
+     *                  maxMessage="Le champ doit être inférieur ou égal à {{ limit }} caractères."
+     *              )
+     * @Assert\Regex("/^[^<>{}][^<>{}]+[^<>{}]$/", message="Le champ ne doit pas contenir les caractères suivants : < > { }")
      */
     private $address;
 

@@ -6,6 +6,7 @@ use App\Repository\PurchaseRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=PurchaseRepository::class)
@@ -30,31 +31,79 @@ class Purchase
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Le champ doit être complété.")
+     * @Assert\Length(
+     *                  min=2, 
+     *                  max=255, 
+     *                  minMessage="Le nom doit être supérieur à {{ limit }} caractères.", 
+     *                  maxMessage="Le nom doit être inférieur à {{ limit }} caractères."
+     *              )
+     * @Assert\Regex("/^[^<>{}][^<>{}]+[^<>{}]$/", message="Le champ ne doit pas contenir les caractères suivants : < > { }")
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Le champ doit être complété.")
+     * @Assert\Length(
+     *                  min=2, 
+     *                  max=255, 
+     *                  minMessage="Le nom doit être supérieur à {{ limit }} caractères.", 
+     *                  maxMessage="Le nom doit être inférieur à {{ limit }} caractères."
+     *              )
+     * @Assert\Regex("/^[^<>{}][^<>{}]+[^<>{}]$/", message="Le champ ne doit pas contenir les caractères suivants : < > { }")
      */
     private $lastName;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Le champ doit être complété.")
+     * @Assert\Length(
+     *                  min=2, 
+     *                  max=255, 
+     *                  minMessage="Le nom doit être supérieur à {{ limit }} caractères.", 
+     *                  maxMessage="Le nom doit être inférieur à {{ limit }} caractères."
+     *              )
+     * @Assert\Regex("/^[^<>{}][^<>{}]+[^<>{}]$/", message="Le champ ne doit pas contenir les caractères suivants : < > { }")
      */
     private $city;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Le champ doit être complété.")
+     * @Assert\Length(
+     *                  min=5, 
+     *                  max=7, 
+     *                  minMessage="Le nom doit être supérieur à {{ limit }} caractères.", 
+     *                  maxMessage="Le nom doit être inférieur à {{ limit }} caractères."
+     *              )
+     * @Assert\Regex("/^[^<>{}][^<>{}]+[^<>{}]$/", message="Le champ ne doit pas contenir les caractères suivants : < > { }")
      */
     private $postalCode;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Le champ doit être complété.")
+     * @Assert\Length(
+     *                  min=2, 
+     *                  max=255, 
+     *                  minMessage="Le nom doit être supérieur à {{ limit }} caractères.", 
+     *                  maxMessage="Le nom doit être inférieur à {{ limit }} caractères."
+     *              )
+     * @Assert\Regex("/^[^<>{}][^<>{}]+[^<>{}]$/", message="Le champ ne doit pas contenir les caractères suivants : < > { }")
      */
     private $address;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Le champ doit être complété.")
+     * @Assert\Length(
+     *                  min=2, 
+     *                  max=255, 
+     *                  minMessage="Le nom doit être supérieur à {{ limit }} caractères.", 
+     *                  maxMessage="Le nom doit être inférieur à {{ limit }} caractères."
+     *              )
+     * @Assert\Regex("/^[^<>{}][^<>{}]+[^<>{}]$/", message="Le champ ne doit pas contenir les caractères suivants : < > { }")
      */
     private $country;
 

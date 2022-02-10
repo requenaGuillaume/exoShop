@@ -15,7 +15,6 @@ class RegisterType extends AbstractType
     {
         $builder
             ->add('email')
-            // ->add('roles')
             ->add('password', PasswordType::class)
             ->add('confirmPassword', PasswordType::class)
             ->add('firstName')
@@ -27,8 +26,6 @@ class RegisterType extends AbstractType
             ->add('address')
             ->add('birthDate', DateType::class, [
                 'years' => range(date('Y'), date('Y')-100),
-                // 'months' => range(date('m'), 12),
-                // 'days' => range(date('d'), 31)
             ])
         ;
     }

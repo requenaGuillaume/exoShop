@@ -7,7 +7,7 @@
 {% block h1 %}Editer {{ product.name | capitalize }} <span>{{ product.price | price }}</span>{% endblock %}
 
 {% block body %}
-
+    {# Label & attr defined in ProductType cause form is used by two template #}
     {{ form_start(formEditProduct) }}
 
     {{ form_row(formEditProduct.name) }}

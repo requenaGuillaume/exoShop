@@ -10,27 +10,27 @@
 
     {{ form_start(formRegister, {'attr': {'class': 'w-50 mx-auto'}}) }}
 
-        {{ form_row(formRegister.firstName) }}
+        {{ form_row(formRegister.firstName, {'label': 'Prénom', 'attr': {'placeholder': 'Exemple : Germain'}}) }}
 
-        {{ form_row(formRegister.lastName) }}
+        {{ form_row(formRegister.lastName, {'label': 'Nom', 'attr': {'placeholder': 'Exemple : Dupont'}}) }}
 
-        {{ form_row(formRegister.email) }}
+        {{ form_row(formRegister.email, {'attr': {'placeholder': 'Exemple : cocolasticot@gmail.com'}}) }}
 
-        {{ form_row(formRegister.phone) }}
+        {{ form_row(formRegister.phone, {'label': 'N° de téléphone', 'attr': {'placeholder': 'Format : 0606875539 ou +339290147251'}}) }}
 
-        {{ form_row(formRegister.country) }}
+        {{ form_row(formRegister.country, {'label': 'Pays', 'attr': {'placeholder': 'France, Belgique ou Suisse uniquement'}}) }}
 
-        {{ form_row(formRegister.city) }}
+        {{ form_row(formRegister.city, {'label': 'Ville', 'attr': {'placeholder': 'Exemple : Saint-Ouen'}}) }}
 
-        {{ form_row(formRegister.postalCode) }}
+        {{ form_row(formRegister.postalCode, {'label': 'Code postal', 'attr': {'placeholder': 'Exemple : 93400'}}) }}
 
-        {{ form_row(formRegister.address) }}
+        {{ form_row(formRegister.address, {'label': 'Adresse', 'attr': {'placeholder': 'Exemple : 34 rue de la corniche'}}) }}
 
-        {{ form_row(formRegister.birthDate) }}
+        {{ form_row(formRegister.birthDate, {'label': 'Date de naissance'}) }}
 
-        {{ form_row(formRegister.password) }}
+        {{ form_row(formRegister.password, {'label': 'Définissez votre mot de passe'}) }}
 
-        {{ form_row(formRegister.confirmPassword, {'label': 'Confirm password'}) }}
+        {{ form_row(formRegister.confirmPassword, {'label': 'Retapez votre mot de passe'}) }}
 
         <button type="submit" class="btn btn-success">S'inscrire</button>
 

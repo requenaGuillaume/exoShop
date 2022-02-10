@@ -6,6 +6,7 @@ use App\Repository\CategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=CategoryRepository::class)
@@ -21,6 +22,14 @@ class Category
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Le champ doit être complété.")
+     * @Assert\Length(
+     *                  min=2, 
+     *                  max=255, 
+     *                  minMessage="Le nom doit être supérieur à {{ limit }} caractères.", 
+     *                  maxMessage="Le nom doit être inférieur à {{ limit }} caractères."
+     *              )
+     * @Assert\Regex("/^[^<>{}][^<>{}]+[^<>{}]$/", message="Le champ ne doit pas contenir les caractères suivants : < > { }")
      */
     private $name;
 

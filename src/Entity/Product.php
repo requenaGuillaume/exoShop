@@ -6,6 +6,7 @@ use App\Repository\ProductRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ProductRepository::class)
@@ -21,16 +22,28 @@ class Product
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Le champ doit être complété.")
+     * @Assert\Length(
+     *                  min=2, 
+     *                  max=255, 
+     *                  minMessage="Le nom doit être supérieur à {{ limit }} caractères.", 
+     *                  maxMessage="Le nom doit être inférieur à {{ limit }} caractères."
+     *              )
+     * @Assert\Regex("/^[^<>{}][^<>{}]+[^<>{}]$/", message="Le champ ne doit pas contenir les caractères suivants : < > { }")
      */
     private $name;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank(message="Le champ doit être complété.")
+     * @Assert\Regex("/^[^<>{}][^<>{}]+[^<>{}]$/", message="Le champ ne doit pas contenir les caractères suivants : < > { }")
      */
     private $description;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank(message="Le champ doit être complété.")
+     * @Assert\Positive(message="La valeur doit être positive.")
      */
     private $price;
 
@@ -41,11 +54,13 @@ class Product
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Url(message="Ce champ doit recevoir une URL")
      */
     private $image;
 
     /**
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="products")
+     * @Assert\NotBlank(message="Vous devez choisir une cétégorie.")
      */
     private $category;
 

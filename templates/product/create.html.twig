@@ -7,7 +7,7 @@
 {% block h1 %}Créer un nouveau produit{% endblock %}
 
 {% block body %}
-
+    {# Label & attr defined in ProductType cause form is used by two template #}
     {{ form_start(formCreateProduct) }}
 
     {{ form_row(formCreateProduct.name) }}

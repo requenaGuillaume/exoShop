@@ -6,8 +6,10 @@
 
 {% block body %}
 
-    {% if purchases %}
-        {% for purchase in purchases %}
+    {% if purchases is empty %}
+        <h3>Vous n'avez pas encore commandé, hatez vous !</h3>
+    {% else %}        
+        {% for purchase in purchases %}        
             <div class="card p-2 mt-2 rounded bg-success">
                 <h4>Commande du {{ purchase.createdAt | date('d-m-Y à H:i') }}</h4>
                 <ul class="list-unstyled">

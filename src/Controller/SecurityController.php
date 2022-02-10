@@ -30,10 +30,15 @@ class SecurityController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
+
             $user->setPassword($hasher->hashPassword($user, $user->getPassword()));
             $em->persist($user);
             $em->flush();
+
+            $this->addFlash('success', 'Vous avez bien été inscrit, vous pouvez vous connecter.');
+
             return $this->redirectToRoute('security_login');
+            
         }
 
         return $this->render('security/register.html.twig', [
